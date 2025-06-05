@@ -1,7 +1,7 @@
 # Gagana
 
 <p align="center">
-  <img alt="Project Banner" src="assets/img/Banner.png" width="99%" height="auto"/></br>
+  <img alt="Project Banner" src="assets/images/Banner.png" width="99%" height="auto"/></br>
 </p>
 
 Recently, [Italiano and Cummins](https://arxiv.org/abs/2501.00655) introduced an elegant methodology for uncovering performance bugs in compilers. Their approach involves using a pre-trained large language model (LLM) to generate a seed program, followed by successive mutations designed to provoke unexpected behavior, even in mainstream compilers. This methodology is particularly appealing due to its language-agnostic nature: it can be adapted to different programming languages without the need to develop a dedicated fuzzer for each one. Moreover, it has proven highly effective, uncovering previously unknown (zero-day) performance bugs in widely used compilers such as Clang, ICC, and GCC.
