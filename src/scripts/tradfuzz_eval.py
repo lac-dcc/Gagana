@@ -9,9 +9,8 @@ import subprocess
 import argparse
 import pandas as pd
 
-YARPGEN_PATH = '/bin/yarpgen.out' #! PASS AS PARAMETER
-
-
+GCC_VERSION = '11'
+YARPGEN_PATH = './yarpgen.out'
 
 class GenerationPipeline:
     def __init__(self, output_dir_base: str, fuzzer="yarpgen"):
@@ -50,7 +49,7 @@ class GenerationPipeline:
         c_files = glob.glob(f"{source_dir}/*.c")
         for opt_flag in opt_flags:
             result = subprocess.run([
-                "gcc-14", opt_flag, *c_files,
+                f"gcc-{GCC_VERSION}", opt_flag, *c_files,
                 f'-I{source_dir}', "-o", f'{out_dir}/{out_file}{opt_flag}.out'
             ])
             if result.returncode != 0:

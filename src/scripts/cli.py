@@ -17,12 +17,13 @@ def run_llm(directory, model, size, gen_type):
         gen_type
     ], check=True)
 
-def run_traditional(num_tests, output_dir):
-    print(f"Running traditional fuzz evaluation with {num_tests} tests")
+def run_traditional(fuzzer,time, output_dir, yg_path='./yarpgen.out'):
     subprocess.run([
         "python", "src/scripts/tradfuzz_eval.py",
-        "--num", str(num_tests),
-        "--output", output_dir
+        "--fuzzer", fuzzer,
+        "--timeout", time,
+        "--output", output_dir,
+        "--yarpgen-path", yg_path
     ], check=True)
 
 def main():
@@ -38,7 +39,8 @@ def main():
 
     # Traditional fuzz subcommand
     parser_trad = subparsers.add_parser("traditional", help="Run traditional fuzz evaluation")
-    parser_trad.add_argument("--num", type=int, help="Number of tests to run")
+    parser_trad.add_argument("--fuzzer", type=int, help="Fuzzer ('csmith' or 'yarpgen')")
+    parser_trad.add_argument("--time", type=float, help="Time of generation (in seconds)")
     parser_trad.add_argument("--output", type=str, help="Directory to store results")
 
     args = parser.parse_args()
@@ -51,11 +53,13 @@ def main():
         run_llm(directory, model, size, gen_type)
 
     elif args.mode == "traditional":
-        num_tests = args.num if args.num is not None else int(input("Enter number of tests to run: "))
-        time_to_run = args.time if args.time is not None else float(input("Time to run in seconds (default: 3 hours):"))
+        fuzzer = args.fuzzer if args.fuzzer is not None else input("Fuzzer name ('csmith' or 'yarpgen'): ")
+        time_to_run = args.time if args.time is not None else float(input("Time to run in seconds:"))
         output_dir = args.output if args.output is not None else input("Enter directory to store results: ")
-        yarpgen_path = args.yg if args.yg is not None else input("Path to yarpgen binary: ")
-        run_traditional(num_tests,time_to_run, output_dir, yarpgen_path)
+        yarpgen_path = './yarpgen.out'
+        if fuzzer == 'yarpgen':
+            yarpgen_path = input("Path to yarpgen binary(default='./yarpgen.out'): ")
+        run_traditional(fuzzer,time_to_run, output_dir, yarpgen_path)
 
 if __name__ == "__main__":
     main()

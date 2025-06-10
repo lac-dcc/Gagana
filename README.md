@@ -28,15 +28,24 @@ Follow the official repository instructions:
 [Yarpgen Repository](https://github.com/intel/yarpgen/)
 
 
-### 3. Create a virtual environment and install dependencies
+### 3. Install `GCC 14`
+
+...
+
+### 4. Create a virtual environment and install dependencies
 
 ```bash
 uv venv
 uv pip install -e .
 ```
 
-### 4. Generating LLM codes
+### 5. Generating LLM codes
 
-### 5. Generating Traditional Fuzzer codes
+### 6. Generating Traditional Fuzzer codes
+After installing the chosen traditional fuzzer
+```bash
+uv run gagana-cli traditional
+```
+and then pass the additional information following the script steps.
 
-### 6. Evaluating
+### 7. Evaluating
