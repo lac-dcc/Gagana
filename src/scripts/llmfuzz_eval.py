@@ -96,12 +96,12 @@ def compile_each_c_file(directory):
     return totalTries, successfulCompiles, elapsed_time, regressions
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description="Compile C files with various optimization flags and verify regressions.")
-    parser.add_argument("directory", type=str, help="Directory containing C files to compile.")
-    parser.add_argument("model", type=str, help="Model name.")
-    parser.add_argument("size", type=str, help="Model size.")
-    parser.add_argument("type", type=str, help="Type of generation (e.g chain or single).")
+    parser.add_argument("--directory", type=str, help="Directory containing C files to compile.")
+    parser.add_argument("--model", type=str, help="Model name.")
+    parser.add_argument("--size", type=str, help="Model size.")
+    parser.add_argument("--type", type=str, help="Type of generation (e.g chain or single).")
     args = parser.parse_args()
 
     if not os.path.exists(args.directory):
@@ -126,4 +126,7 @@ if __name__ == "__main__":
     print(f"Successful compiles: {successful_compiles}")
     print(f"Elapsed time: {elapsed_time:.2f} seconds")
     print(f"Regressions found: {regressions}")
+
+if __name__ == "__main__":
+    main()
 

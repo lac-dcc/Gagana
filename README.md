@@ -12,40 +12,133 @@ Although this outcome may seem discouraging, it is important to note that we are
 
 This repository contains an artifact of the entire generation and testing process for the article "On the Practicality of LLM-Based Compiler Fuzzing".
 
-## Using
+---
 
-We use [UV](https://docs.astral.sh/uv/) as our Python package and project manager.
+## Using Gagana
+
+We use [**UV**](https://docs.astral.sh/uv/) as our Python package and project manager.
+This ensures fast and reproducible environments with minimal configuration.
+
 
 ### 1. Install `uv`
 
-Follow the official installation instructions:  
-https://docs.astral.sh/uv/installation/
+Follow the official installation instructions:
+👉 [UV Installation Guide](https://docs.astral.sh/uv/getting-started/installation/)
 
-### 2. Install `Csmith` and `Yarpgen`
 
-Follow the official repository instructions:
-[Csmith Repository](https://github.com/csmith-project/csmith/)
-[Yarpgen Repository](https://github.com/intel/yarpgen/)
+### 2. Install Code Generators
+
+Install the traditional C code generators used for comparison:
+
+* **[Csmith](https://github.com/csmith-project/csmith/)**
+* **[Yarpgen](https://github.com/intel/yarpgen/)**
+
+> Follow the respective installation instructions in each repository to build and set up the tools.
 
 
 ### 3. Install `GCC 14`
 
-...
+You may need **GCC 14** to compile the generated programs.
+We recommend installing it via your system's package manager or from source.
 
-### 4. Create a virtual environment and install dependencies
+On Ubuntu 24.04, you can use:
+
+```bash
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt update
+sudo apt install gcc-14 g++-14
+```
+
+> If your distro don't have gcc-14 on apt repository, you may build gcc 14 from source following the steps below.
+
+```bash
+apt install libmpfr-dev libgmp3-dev libmpc-dev -y
+```
+
+```bash
+wget http://ftp.gnu.org/gnu/gcc/gcc-14.1.0/gcc-14.1.0.tar.gz
+tar -xf gcc-14.1.0.tar.gz && cd gcc-14.1.0
+```
+
+```bash
+./configure -v --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --prefix=/usr/local/gcc-14.1.0 --enable-checking=release --enable-languages=c,c++ --disable-multilib --program-suffix=-14
+```
+
+```bash
+make
+```
+
+```bash
+make install
+```
+
+```bash
+export PATH=$PATH:/usr/local/gcc-14.1.0/bin
+```
+
+
+Make sure `gcc-14` and `g++-14` are available in your `PATH`.
+
+
+### 4. Set up the Python environment
+
+Create and activate a virtual environment with UV:
 
 ```bash
 uv venv
 uv pip install -e .
 ```
 
-### 5. Generating LLM codes
+This will install the package in editable mode along with its dependencies.
 
-### 6. Generating Traditional Fuzzer codes
-After installing the chosen traditional fuzzer
+
+### 5. Generating Code with LLMs
+
+To generate code samples using LLMs, open and run the following notebook step by step:
+
 ```bash
-uv run gagana-cli traditional
+notebooks/Gagana.ipynb
 ```
-and then pass the additional information following the script steps.
 
-### 7. Evaluating
+Make sure the notebook dependencies are installed, including `ipykernel` if needed:
+
+```bash
+uv pip install notebook ipykernel
+```
+
+
+### 6. Generating Code with Traditional Fuzzers
+
+After installing **Csmith** or **Yarpgen**, run:
+
+```bash
+uv run gagana-traditional
+```
+
+This will execute the traditional code generation pipeline.
+You can pass arguments to configure the generation process as described in the script’s help section:
+
+```bash
+uv run gagana-traditional --help
+```
+
+
+### 7. Evaluating Generated Code
+
+* **Traditional Fuzzer Outputs:**
+  Automatically generate a `.csv` file with performance metrics and evaluation data after code execution.
+
+* **LLM Outputs:**
+  To evaluate LLM-generated code, run:
+
+  ```bash
+  uv run gagana-llm
+  ```
+
+  As with the traditional script, you can pass arguments as needed:
+
+  ```bash
+  uv run gagana-llm --help
+  ```
+
+
