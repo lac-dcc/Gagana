@@ -137,7 +137,7 @@ def main():
     parser = argparse.ArgumentParser(description="Run traditional fuzzer evaluation (YARPGen or Csmith).")
     parser.add_argument("--fuzzer", choices=["yarpgen", "csmith"], required=True, help="Choose the fuzzer to run.")
     parser.add_argument("--timeout", type=float, default=10800.0, help="Total runtime in seconds (default: 3 hours).")
-    parser.add_argument("--output-dir", type=str, default="../../data/TimeCodeExperiment/traditionalFuzzers", help="Base output directory.")
+    parser.add_argument("--output-dir", type=str, default="", help="Base output directory.")
     parser.add_argument("--yarpgen-path", type=str, default="./yarpgen.out", help="Yarpgen binary path")
     args = parser.parse_args()
 

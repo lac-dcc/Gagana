@@ -98,10 +98,10 @@ def compile_each_c_file(directory):
 
 def main():
     parser = argparse.ArgumentParser(description="Compile C files with various optimization flags and verify regressions.")
-    parser.add_argument("--directory", type=str, help="Directory containing C files to compile.")
-    parser.add_argument("--model", type=str, help="Model name.")
-    parser.add_argument("--size", type=str, help="Model size.")
-    parser.add_argument("--type", type=str, help="Type of generation (e.g chain or single).")
+    parser.add_argument("--directory", required=True, type=str, help="Directory containing C files to compile.")
+    parser.add_argument("--model", required=True, type=str, help="Model name.")
+    parser.add_argument("--size", required=True, type=str, help="Model size.")
+    parser.add_argument("--type", required=True, type=str, help="Type of generation (e.g chain or single).")
     args = parser.parse_args()
 
     if not os.path.exists(args.directory):
@@ -110,7 +110,7 @@ def main():
 
     total_tries, successful_compiles, elapsed_time, regressions = compile_each_c_file(args.directory)
 
-    output_csv_path = os.path.join("" , f"compilation_results{args.type}.csv")
+    output_csv_path = os.path.join("" , f"{args.type}_results.csv")
 
     with open(output_csv_path, mode='a', newline='') as csv_file:
         file_is_empty = os.stat(output_csv_path).st_size == 0
