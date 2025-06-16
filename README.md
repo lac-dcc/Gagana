@@ -95,7 +95,7 @@ This will install the package in editable mode along with its dependencies.
 ### 5. Generating Code with LLMs
 
 For the generation process using Large Language Models (LLMs), Google Colab Pro was utilized. This provided access to a GPU, which was essential for the computations.
-To generate code samples using LLMs, open and run the following notebook step by step
+To generate code samples using LLMs, open and run the following notebook step by step - you may need to upload to Google Colab.
 
 ```bash
 notebooks/Gagana.ipynb
