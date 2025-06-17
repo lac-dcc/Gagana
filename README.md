@@ -10,7 +10,8 @@ Although this outcome may seem discouraging, it is important to note that we are
 
 ## Content
 
-This repository contains an artifact of the entire generation and testing process for the article "On the Practicality of LLM-Based Compiler Fuzzing".
+This repository contains an artifact of the entire generation and testing process for the article "[On the Practicality of LLM-Based Compiler Fuzzing](assets/docs/TechReport.pdf)".
+A technical report describing our methodology and results is available [here](assets/docs/TechReport.pdf).
 
 ---
 
