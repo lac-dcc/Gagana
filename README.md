@@ -8,10 +8,32 @@ Recently, [Italiano and Cummins](https://arxiv.org/abs/2501.00655) introduced an
 In an effort to reproduce the results reported by Italiano and Cummins, we confirm that their technique outperforms general-purpose LLMs, such as open-source versions of LLaMA and DeepSeek, in identifying compiler performance bugs. However, we also observe that while the LLM-based approach is commendable, it lags behind tools like CSmith in terms of throughput (the number of bugs found over time) and latency (the time to discover the first bug). LLMs also require significantly greater computational resources.
 Although this outcome may seem discouraging, it is important to note that we are comparing novel LLMs with a mature language-specific fuzzer. Nevertheless, as technology evolves, we expect the performance of LLM-based fuzzing to improve, potentially surpassing traditional methods in the future.
 
-## Content
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16738366.svg)](https://doi.org/10.5281/zenodo.16738366)
+
+## ✅ Requirements
+
+- **Python** 3.10 or newer
+- **uv** (Python environment manager): [installation guide](https://docs.astral.sh/uv/)
+- **gcc-14** and **g++-14**
+- **RAM**: At least 16GB recommended
+- **GPU**: Recommended for LLM generation (used via Google Colab Pro)
+- **OS**: Linux (tested on Ubuntu 24.04)
+- **Fuzzers**: [Csmith](https://github.com/csmith-project/csmith) and [Yarpgen](https://github.com/intel/yarpgen)
+
+## Content and Structure
 
 This repository contains an artifact of the entire generation and testing process for the article "[On the Practicality of LLM-Based Compiler Fuzzing](assets/docs/TechReport.pdf)".
 A technical report describing our methodology and results is available [here](assets/docs/TechReport.pdf).
+
+This is a technical report under review. The final version will be linked here when available.
+
+```
+├── assets/         # Images, banners, PDF
+├── notebooks/      # LLM code generation notebook
+├── src/scripts/    # Used scripts
+├── LICENSE         # Open source license (MIT)
+└── README.md       # This file
+```
 
 ---
 
@@ -20,22 +42,19 @@ A technical report describing our methodology and results is available [here](as
 We use [**UV**](https://docs.astral.sh/uv/) as our Python package and project manager.
 This ensures fast and reproducible environments with minimal configuration.
 
-
 ### 1. Install `uv`
 
 Follow the official installation instructions:
 👉 [UV Installation Guide](https://docs.astral.sh/uv/getting-started/installation/)
 
-
 ### 2. Install Code Generators
 
 Install the traditional C code generators used for comparison:
 
-* **[Csmith](https://github.com/csmith-project/csmith/)**
-* **[Yarpgen](https://github.com/intel/yarpgen/)**
+- **[Csmith](https://github.com/csmith-project/csmith/)**
+- **[Yarpgen](https://github.com/intel/yarpgen/)**
 
 > Follow the respective installation instructions in each repository to build and set up the tools.
-
 
 ### 3. Install `GCC 14`
 
@@ -77,9 +96,7 @@ make install
 export PATH=$PATH:/usr/local/gcc-14.1.0/bin
 ```
 
-
 Make sure `gcc-14` and `g++-14` are available in your `PATH`.
-
 
 ### 4. Set up the Python environment
 
@@ -91,7 +108,6 @@ uv pip install -e .
 ```
 
 This will install the package in editable mode along with its dependencies.
-
 
 ### 5. Generating Code with LLMs
 
@@ -106,13 +122,11 @@ Or access the notebook on Google Colab using the following link:
 
 [Google Drive File](https://drive.google.com/file/d/1A1MWOK_n6kl8IcV2fFyvTcUkqK2wodWO/view?usp=sharing)
 
-
 Make sure the notebook dependencies are installed, including `ipykernel` if needed:
 
 ```bash
 uv pip install notebook ipykernel
 ```
-
 
 ### 6. Generating Code with Traditional Fuzzers
 
@@ -129,13 +143,12 @@ You can pass arguments to configure the generation process as described in the s
 uv run gagana-traditional --help
 ```
 
-
 ### 7. Evaluating Generated Code
 
-* **Traditional Fuzzer Outputs:**
+- **Traditional Fuzzer Outputs:**
   Automatically generate a `.csv` file with performance metrics and evaluation data after code execution.
 
-* **LLM Outputs:**
+- **LLM Outputs:**
   To evaluate LLM-generated code, run:
 
   ```bash
@@ -148,4 +161,8 @@ uv run gagana-traditional --help
   uv run gagana-llm --help
   ```
 
+## 📄 License
 
+This project is licensed under the [MIT License](./LICENSE).  
+Copyright (c) 2025  
+**Departamento de Ciência da Computação — Universidade Federal de Minas Gerais**
