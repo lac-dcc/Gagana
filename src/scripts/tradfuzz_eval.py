@@ -9,7 +9,7 @@ import subprocess
 import argparse
 import pandas as pd
 
-GCC_VERSION = '11'
+GCC_VERSION = '14'
 YARPGEN_PATH = './yarpgen.out'
 
 class GenerationPipeline:

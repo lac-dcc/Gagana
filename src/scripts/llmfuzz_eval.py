@@ -73,7 +73,7 @@ def compile_each_c_file(directory):
             source_path = c_file  # <-- Aqui é o caminho já completo
             output_path = os.path.join(directory, output_name + opt_flag + ".out")
 
-            compile_cmd = ["gcc-13", opt_flag, source_path, "-fsanitize=address", "-o", output_path]
+            compile_cmd = ["gcc-14", opt_flag, source_path, "-fsanitize=address", "-o", output_path]
 
             print(f"Compiling {c_file} with {opt_flag} -> {output_name}")
             result = subprocess.run(compile_cmd)

@@ -46,6 +46,7 @@ This ensures fast and reproducible environments with minimal configuration.
 
 Follow the official installation instructions:
 👉 [UV Installation Guide](https://docs.astral.sh/uv/getting-started/installation/)
+> Tip: You may have to restart your terminal session or add uv to PATH before the next steps.
 
 ### 2. Install Code Generators
 
@@ -103,6 +104,7 @@ Make sure `gcc-14` and `g++-14` are available in your `PATH`.
 Create and activate a virtual environment with UV:
 
 ```bash
+uv sync
 uv venv
 uv pip install -e .
 ```
